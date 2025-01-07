@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/App.qml</file>
+        <file>qml/window/AboutWindow.qml</file>
+        <file>qml/window/CrashWindow.qml</file>
+        <file>qml/window/FluentInitializrWindow.qml</file>
+        <file>qml/window/HotloadWindow.qml</file>
+        <file>qml/window/LoginWindow.qml</file>
+        <file>qml/window/MainWindow.qml</file>
+        <file>qml/window/PageWindow.qml</file>
+        <file>qml/window/SingleInstanceWindow.qml</file>
+        <file>qml/window/SingleTaskWindow.qml</file>
+        <file>qml/window/StandardWindow.qml</file>
+        <file>qml/component/CodeExpander.qml</file>
+        <file>qml/global/GlobalModel.qml</file>
+        <file>qml/global/ItemsFooter.qml</file>
+        <file>qml/global/ItemsOriginal.qml</file>
+        <file>res/image/favicon.ico</file>
+    </qresource>
+</RCC>

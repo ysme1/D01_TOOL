@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(SBO2_DOM VERSION 0.1 LANGUAGES CXX)
+project(D01_TOOL VERSION 0.1 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/.cmake/)
 include(GetGitRevisionDescription)
@@ -27,8 +27,8 @@ endif ()
 set(QT_VERSION_MAJOR 6.4)
 
 #导入Qt相关依赖包
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Gui PrintSupport Widgets SerialPort Network)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui PrintSupport Widgets SerialPort Network)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Svg Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Svg Network)
 
 #添加国际化脚本
 find_program(QT_LUPDATE NAMES lupdate lupdate-qt6)
@@ -57,6 +57,10 @@ foreach (filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND sources_files ${filename})
 endforeach (filepath)
+
+if (WIN32)
+    list(APPEND sources_files "src/app_dmp.h")
+endif ()
 
 #如果是Windows平台，则生成rc文件，还有inno setup脚本文件
 set(EXAMPLE_VERSION_RC_PATH "")
@@ -96,7 +100,9 @@ add_dependencies(${PROJECT_NAME} Script-UpdateTranslations)
 
 #导入头文件
 target_include_directories(${PROJECT_NAME} PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/
         ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/libusb
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/component
 )
 
 #设置属性
@@ -122,11 +128,8 @@ endforeach (filepath)
 
 list(APPEND lib_files
     Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Gui
-    Qt${QT_VERSION_MAJOR}::PrintSupport
-    Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::SerialPort
-    Qt${QT_VERSION_MAJOR}::Network
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Qml
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
